@@ -38,7 +38,7 @@ const Navbar = () => {
           title={address ? "Create a campaign" : "Connect"}
           styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
           handleClick={() => {
-            if (address) router.push("/create-campaign");
+            if (address) router.push("/campaigns/create");
             else connect();
           }}
         />
@@ -113,7 +113,7 @@ const Navbar = () => {
               title={address ? "Create a campaign" : "Connect"}
               styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
               handleClick={() => {
-                if (address) router.push("/create-campaign");
+                if (address) router.push("/campaigns/create");
                 else connect();
               }}
             />

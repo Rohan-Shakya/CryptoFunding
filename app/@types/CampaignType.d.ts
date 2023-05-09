@@ -1,9 +1,11 @@
 import { ethers } from "ethers";
 
 type CampaignType = {
-  owner?: string;
+  id: string;
+  owner: string;
   address: string;
   title: string;
+  slug: string;
   description: string;
   target: ethers.BigNumberType;
   deadline: ethers.BigNumberType;

@@ -1,6 +1,29 @@
+import DisplayCampaigns from "@/components/DisplayCampaigns";
+import { useStateContext } from "@/context/state";
 import Head from "next/head";
+import React, { useState, useEffect, useCallback } from "react";
 
-export default function Home() {
+const Home = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [campaigns, setCampaigns] = useState([]);
+
+  const { address, contract, getCampaigns } = useStateContext();
+
+  const fetchCampaigns = useCallback(async () => {
+    setIsLoading(true);
+    const data = await getCampaigns();
+    setCampaigns(data);
+    setIsLoading(false);
+  }, [getCampaigns]);
+
+  useEffect(() => {
+    if (contract) {
+      fetchCampaigns();
+    }
+  }, [address, contract, fetchCampaigns]);
+
+  console.log(campaigns);
+
   return (
     <>
       <Head>
@@ -9,9 +32,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>Next</h1>
-      </main>
+
+      <DisplayCampaigns
+        title="All Campaigns"
+        isLoading={isLoading}
+        campaigns={campaigns}
+      />
     </>
   );
-}
+};
+
+export default Home;

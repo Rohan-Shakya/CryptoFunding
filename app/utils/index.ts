@@ -1,5 +1,5 @@
-export const daysLeft = (deadline: Date): string => {
-  const difference: number = deadline.getTime() - Date.now();
+export const daysLeft = (deadline: Date | any): string => {
+  const difference: number = new Date(deadline).getTime() - Date.now();
   const remainingDays: number = difference / (1000 * 3600 * 24);
 
   return remainingDays.toFixed(0);
@@ -25,4 +25,15 @@ export const checkIfImage = (
 
   img.onload = () => callback(true);
   img.onerror = () => callback(false);
+};
+
+export const slugify = (text: string): string => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
 };
